@@ -1,0 +1,12 @@
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+.live_cache
+release_notes_store
+releasetrain.duckdb
+*.faiss
+*.pkl
+.git

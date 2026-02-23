@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.DS_Store
+
+# Virtual env
+.venv/
+env/
+
+# Cache
+.live_cache/
+
+# Database
+*.duckdb
+
+# Secrets
+.env
+
+# Generated stores / indexes
+data/
+release_notes_store/
+
+# Cache
+.live_cache/
+
+# Locks
+releasetrain.lock
