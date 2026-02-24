@@ -1,37 +1,38 @@
-# 🚀 ReleaseHub OS Intelligence  
-### Vendor-Verified OS Version Retrieval System  
+<div align="center">
 
-🔗 Live App: https://your-streamlit-url.streamlit.app  
-📦 Repository: https://github.com/farheen-shaikh530/llm-abstain.v1  
+<img src="https://github.com/farheen-shaikh530/llm-abstain.v1/upload/main/assets/Logo1.png" width="850"/>
 
----
+<br>
 
-## 📌 Overview
 
-ReleaseHub OS Intelligence is a production-deployed Streamlit application that retrieves verified OS version information using deterministic filtering logic.
+</div>
 
-The system:
 
-- Detects vendors strictly from a verified vendor registry (`/api/c/names`)
-- Retrieves OS component metadata from `/api/component?q=os`
-- Filters by:
-  - `versionProductBrand`
-  - `versionTimestampLastUpdate`
-  - `versionReleaseDate`
-- Returns the exact `versionNumber`
-- Safely abstains when evidence is insufficient
 
-This project demonstrates safe AI system design principles by eliminating hallucination risk and enforcing evidence-based retrieval.
+<a href="https://llm-abstainv1-yqcecj8a6vdkkugbayf8sc.streamlit.app" target="_blank">
+    <img alt="Live Demo" src="https://img.shields.io/badge/Live-Demo-4e6b99?style=for-the-badge">
+</a>
+
+<a href="https://github.com/farheen-shaikh530/llm-abstain.v1" target="_blank">
+    <img alt="GitHub Repo" src="https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github">
+</a>
+
+<img alt="Python" src="https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python">
+
+</div>
 
 ---
 
-## ⚙️ Tech Stack
+## 📖 What is ReleaseHub?
 
-- Python 3.11
-- Streamlit
-- Requests
-- Deterministic filtering logic
-- Optional Gemini formatting layer (strict validation mode)
+ReleaseHub is Intelligent Release Note system a **Evidence based retrieval system** that returns verified OS version and other software related discussion information data from authoritative component feeds.
 
-Deployment:
-- Streamlit Community Cloud
+
+Glimps of LLM Engine:
+
+- 🔒Implementing Contextual Grounding to mitigate hallucination by enforcing schema Constraints to user inputs, and anchoring all 50+ prompts.
+- 📊 Uses vendor validation through grounded vendor contains 200K vendors and matched context + vendor with the given prompt.
+- 🧠 Applies deterministic timestamp filtering for the user prompts.
+- ❌ From document clusters calculate percentage scoring on founded evidence, abstains when score is >50%.
+
+---
