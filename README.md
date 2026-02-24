@@ -16,8 +16,13 @@
 
 </div>
 
+</br>
 
----
+<div align="center">
+  <img src="https://media1.tenor.com/m/l9Fcn-zeKPsAAAAd/divider.gif" width="100%" alt="divider animation"/>
+</div>
+
+</br>
 
 <details open>
 <summary><b>📕 Table of Contents</b></summary>
@@ -157,7 +162,7 @@ Example user query:
 
 ReleaseHub supports deterministic, vendor-verified OS version retrieval queries. All queries must reference a vendor present in `/api/c/names`.
 
----
+
 
 ### 1️⃣ Latest OS Version
 
@@ -238,6 +243,7 @@ Version for EN-OS on 2026-01-01
 - Otherwise → abstains
 
 ---
+
 ## 🧰 Tech Stack
 
 ### 1️⃣ Google Gemini (Optional Formatting Layer)
@@ -286,6 +292,8 @@ Instead of relying purely on LLM reasoning, ReleaseHub:
 
 </br>
 
+---
+
 <details>
 <summary><b><h2>📚 Documentation Archive</h2></b></summary>
 
@@ -293,6 +301,8 @@ Instead of relying purely on LLM reasoning, ReleaseHub:
   https://arxiv.org/abs/YOUR_ARXIV_ID
 
 </details>
+
+---
 
 
 ## 📈 Future Roadmap
