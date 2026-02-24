@@ -24,17 +24,16 @@
 <details open>
 <summary><b>📕 Table of Contents</b></summary>
 
-- 🚀 [About ReleaseHub](#-about-releasehub)
-- 🧠 [Problem It Solves](#-problem-it-solves)
-- ⚙️ [How It Works](#️-how-it-works)
-- 🔎 [Deterministic Retrieval Engine](#-deterministic-retrieval-engine)
-- 🛡 [Abstention & Hallucination Control](#-abstention--hallucination-control)
-- 📊 [Supported Queries](#-supported-queries)
-- 🎮 [Live Demo](#-live-demo)
-- 🏗 [System Design Overview](#-system-design-overview)
-- 📦 [Tech Stack](#-tech-stack)
-- 🔐 [Environment Variables](#-environment-variables)
-- 📈 [Future Roadmap](#-future-roadmap)
+- 🚀 [About ReleaseHub]
+-  🎮 [Demo]
+- 🌟 [Key Features]
+- 🔎 [System Architecture]
+- 🎬 [Get Started]
+- 🔧 [Configurations]
+- 📊 [Supported Queries]
+- 📦 [Tech Stack]
+- 📚 [Documentation]
+- 📈 [Future Roadmap]
 
 </details>
 
@@ -49,10 +48,7 @@ ReleaseHub is Intelligent Release Note system an **evidence based data retrieval
 
 ## 🎮 Demo
 
-
-
 ---
-
 
 ## 🌟 Key Features
 
@@ -67,7 +63,6 @@ ReleaseHub:
 
 ➡️ Eliminates deployment errors caused by incorrect release lookup.
 
----
 
 ### 2️⃣ Stops AI Hallucination in Release Intelligence
 Most AI systems fabricate version numbers when evidence is weak.
@@ -80,7 +75,6 @@ ReleaseHub:
 
 ➡️ Safe for enterprise environments where accuracy is critical.
 
----
 
 ### 3️⃣ Enables Security & Compliance Monitoring
 Security teams must track OS releases for vulnerability exposure.
@@ -92,7 +86,6 @@ ReleaseHub:
 
 ➡️ Helps SOC teams verify patch timelines and update history.
 
----
 
 ### 4️⃣ Reduces Manual Release Lookup Overhead
 Engineers often search across multiple sources to find release info.
@@ -105,8 +98,70 @@ ReleaseHub:
 
 ➡️ Saves engineering time and reduces operational friction.
 
-
 ---
+
+
+## 🔧 Configuration
+
+
+📡  API Endpoints
+
+Defined configuration details inside `core/config.py`.
+
+```API sources
+os_api_base = "https://releasetrain.io/api/component"
+reddit_api_base = "https://releasetrain.io/api/reddit"
+vendor_api = "https://releasetrain.io/api/c/names"
+```
+
+Purpose:
+	•	vendor_api → Validates vendor existence before lookup
+	•	os_api_base → Retrieves OS version objects against vendor in vendor_api
+	•	reddit_api_base →  Discussion signals related to the OS and/or vendor
+
+
+🗂  Cache Configuration
+
+```
+cache_dir = Path(__file__).resolve().parents[1] / ".live_cache"
+rebuild_ttl_sec = 900
+```
+
+🔐  Environment Variables (Optional LLM Layer)
+```
+export GOOGLE_API_KEY="API KEY HERE"
+export GEMINI_MODEL="gemini-1.5-flash"
+```
+
+🧠  Vendor Validation Logic
+Before querying data lakes, ReleaseHub verifies the vendor exists in below API:
+
+```
+/api/c/names
+
+```
+
+🔧 Configuration Behavior
+
+- Normalized lowercase comparison for vendor detection  
+- Longest-match resolution for multi-word vendors . Vendor list contains: slimbook and slimbook os
+
+Example user query:
+```
+ Latest version for Slimbook OS
+```
+
+**Naive behavior (incorrect):**
+- Matches `slimbook`
+- Queries wrong dataset
+- May return incorrect version information
+
+**Resolution:**
+- Sorts vendor names by length (descending)
+- Matches `slimbook os` (longest exact match)
+- Filters OS records only for the correct vendor, returns verified versionNumber
+
+
 
 
 
