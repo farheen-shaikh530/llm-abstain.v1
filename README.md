@@ -238,8 +238,6 @@ Version for EN-OS on 2026-01-01
 - Otherwise → abstains
 
 ---
-
-
 ## 🧰 Tech Stack
 
 ### 1️⃣ Google Gemini (Optional Formatting Layer)
@@ -286,4 +284,58 @@ Instead of relying purely on LLM reasoning, ReleaseHub:
 - Enforces abstention on uncertainty
 - Rejects invalid LLM output
 
-This ensures reliability over probabilistic guessing.
+</br>
+
+<details>
+<summary><b><h2>📚 Documentation Archive</h2></b></summary>
+
+- 📄 **arXiv Preprint**  
+  https://arxiv.org/abs/YOUR_ARXIV_ID
+
+</details>
+
+
+## 📈 Future Roadmap
+
+### 🔹 1. Multi-Source Cross Validation
+- Integrate CVE feeds for vulnerability-linked version verification
+- Add cross-source consistency checks between OS API and discussion signals
+- Implement confidence scoring based on multi-feed agreement
+
+---
+
+### 🔹 2. Deterministic + RAG Hybrid Layer
+- Introduce structured knowledge graph for OS version lineage
+- Enhance semantic retrieval using improved embedding ranking
+- Evaluate hybrid deterministic + vector retrieval architecture
+
+---
+
+### 🔹 3. Enterprise Safety Controls
+- Add audit logging for version queries
+- Implement traceable decision reports (why a version was returned or abstained)
+- Introduce enterprise-ready API mode
+
+---
+
+### 🔹 4. Extended Vendor Intelligence
+- Support software packages beyond OS components
+- Handle firmware and embedded device release tracking
+- Improve multi-word vendor disambiguation heuristics
+
+---
+
+### 🔹 5. Performance Optimization
+- Reduce latency via smarter TTL invalidation
+- Introduce adaptive caching based on query frequency
+- Benchmark deterministic filtering vs traditional RAG pipelines
+
+---
+
+### 🔹 6. Research Extensions
+- Publish extended evaluation results on hallucination mitigation
+- Formalize abstention metrics for release-intelligence systems
+- Compare against pure LLM-based retrieval baselines
+
+
+
