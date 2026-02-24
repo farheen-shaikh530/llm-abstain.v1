@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/farheen-shaikh530/llm-abstain.v1/main/assets/Logo2.png" width="700"/>
+<img src="https://raw.githubusercontent.com/farheen-shaikh530/llm-abstain.v1/main/assets/Logo4.png" width="700"/>
 
 <br><br>
 
@@ -230,37 +230,50 @@ Version for EN-OS on 2026-01-01
 ---
 
 
-## 🖥 Local Installation
+## 🧰 Tech Stack
 
-### 1️⃣ Clone the Repository
+### 1️⃣ Google Gemini (Optional Formatting Layer)
 
-```bash
-git clone https://github.com/farheen-shaikh530/llm-abstain.v1.git
-cd llm-abstain.v1
-```
-### 2️⃣ Create Virtual Environment (Recommended)
-```
-python3.11 -m venv .venv
-source .venv/bin/activate   # macOS / Linux
-```
-Windows: .venv\Scripts\activate
+- **Model:** `gemini-1.5-flash`
+- SDK: `google-generativeai`
+- Usage: Output formatting only (NOT version inference)
+- Safety: Strict output validation (LLM response must contain verified version)
 
-3️⃣ Install Dependencies
-```
-pip install --upgrade pip
-pip install -r requirements.txt
+Purpose:
+- Natural language formatting
+- Controlled response generation
+- Hallucination-safe integration
 
-```
+---
 
-4️⃣ Configure LLM Formatting Layer
-```
-export GOOGLE_API_KEY="your_api_key_here"
-export GEMINI_MODEL="gemini-1.5-flash"
-```
+### 2️⃣ Streamlit (AI Application Interface)
 
-5️⃣ Run the Application
-```
-streamlit run app.py
-```
+- Used for interactive query-based UI
+- Deployable via Streamlit Community Cloud
 
+---
 
+### 3️⃣ Embedding Models
+
+If applicable in your earlier RAG setup:
+
+- `sentence-transformers/all-mpnet-base-v2`
+- FAISS (Vector Indexing)
+
+Purpose:
+- Semantic retrieval experiments
+- Retrieval optimization research
+
+---
+
+### 4️⃣ Deterministic AI Safety Design
+
+Instead of relying purely on LLM reasoning, ReleaseHub:
+
+- Uses vendor-verified filtering
+- Applies longest-match resolution
+- Uses ISO date validation
+- Enforces abstention on uncertainty
+- Rejects invalid LLM output
+
+This ensures reliability over probabilistic guessing.
