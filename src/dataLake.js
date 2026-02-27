@@ -1,4 +1,5 @@
 import { pool } from './db.js';
+import * as cache from './cache.js';
 
 function extractFields(raw) {
   const tags = Array.isArray(raw.versionSearchTags) ? raw.versionSearchTags : [];
@@ -40,11 +41,18 @@ export async function ingestRecord(raw) {
 
 /**
  * Bulk ingest an array of raw records.
+ * Invalidates cache for affected vendors so next lookup is fresh.
  */
 export async function ingestMany(records) {
   if (!Array.isArray(records)) return;
+  const vendors = new Set();
   for (const r of records) {
     await ingestRecord(r);
+    const v = (r?.versionProductName || r?.versionProductBrand || '').toString().toLowerCase();
+    if (v) vendors.add(v);
+  }
+  for (const v of vendors) {
+    await cache.del(`fact:latest:${v}`);
   }
 }
 
@@ -89,9 +97,14 @@ export async function findRelease({ productBrand, productName, releaseDate, chan
 /**
  * Get latest fact for a vendor (from user input).
  * vendor: e.g. "android", "linux" – matched against versionProductName/versionProductBrand.
+ * Uses Redis cache when REDIS_HOST is set (5 min TTL).
  */
 export async function getLatestFact(vendor) {
   if (!vendor || typeof vendor !== 'string') return null;
+  const cacheKey = `fact:latest:${vendor.trim().toLowerCase()}`;
+  const cached = await cache.get(cacheKey);
+  if (cached) return cached;
+
   const res = await pool.query(
     `SELECT data FROM releases
      WHERE LOWER(version_product_name) = LOWER($1) OR LOWER(version_product_brand) = LOWER($1)
@@ -100,19 +113,26 @@ export async function getLatestFact(vendor) {
     [vendor.trim()]
   );
   const row = res.rows[0];
-  return row ? row.data : null;
+  const record = row ? row.data : null;
+  if (record) await cache.set(cacheKey, record);
+  return record;
 }
 
 /**
  * Get fact for a vendor on a specific date (from user input).
  * vendor: e.g. "android", "linux"
  * date: YYYY-MM-DD (e.g. "2026-02-27") – normalized to YYYYMMDD for DB.
+ * Uses Redis cache when REDIS_HOST is set (10 min TTL for date-specific).
  */
 export async function getFactOnDate(vendor, date) {
   if (!vendor || typeof vendor !== 'string') return null;
   // Normalize date: 2026-02-27 → 20260227
-  let dateNorm = (date || '').replace(/-/g, '').replace(/\D/g, '');
+  const dateNorm = (date || '').replace(/-/g, '').replace(/\D/g, '');
   if (dateNorm.length !== 8) return null;
+
+  const cacheKey = `fact:date:${vendor.trim().toLowerCase()}:${dateNorm}`;
+  const cached = await cache.get(cacheKey);
+  if (cached) return cached;
 
   const res = await pool.query(
     `SELECT data FROM releases
@@ -123,7 +143,9 @@ export async function getFactOnDate(vendor, date) {
     [vendor.trim(), dateNorm]
   );
   const row = res.rows[0];
-  return row ? row.data : null;
+  const record = row ? row.data : null;
+  if (record) await cache.set(cacheKey, record, 600); // 10 min for date-specific
+  return record;
 }
 
 /**

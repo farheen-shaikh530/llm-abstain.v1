@@ -14,7 +14,7 @@ It exposes HTTP APIs that:
 - **httpx/requests** for calling Releasetrain, Tavily and other HTTP APIs.
 - **Neo4j** (via a separate client module) for writing explanation graphs.
 
-The data-lake layer (DuckDB + Airbyte) and Neo4j implementation are owned by the data/graph services and are accessed via small client modules in this backend.
+The data-lake layer (Postgres + Node.js, optional Redis cache) and Neo4j implementation are owned by the data/graph services. The data lake exposes `GET /facts/latest`, `GET /facts/on-date`, and `POST /ingest`. When `REDIS_HOST` is set (Render Key Value), fact lookups are cached (5–10 min TTL) for faster repeat queries.
 
 ## Running locally
 
