@@ -51,15 +51,7 @@ ReleaseHub is Intelligent Release Note system an **evidence based data retrieval
 
 ## 🎮 Demo
 
-<div align="center">
-
-<img src="assets/Demo1.png" width="900"/>
-
-<br><br>
-
-<img src="assets/Demo2.png" width="900"/>
-
-</div>
+In progress
 
 ---
 
