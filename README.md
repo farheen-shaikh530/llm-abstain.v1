@@ -8,8 +8,9 @@
 
 <p align="center">
   <b>Author:</b> Farheen Shabbir Shaikh <br>
-  <b>My Role:</b> Researcher & Developer <br>
-  <b>Project Type:</b> Research Project
+  <b>Project Type:</b> Research Project <br>
+  <b>My Role:</b> Researcher & Developer 
+  
 </p>
 
 ---
